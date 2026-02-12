@@ -4,11 +4,16 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "dev:web": "pnpm --filter @kodnest/web dev",
+    "dev:worker": "pnpm --filter @kodnest/worker dev",
     "lint": "turbo run lint",
     "db:generate": "pnpm --filter @kodnest/db exec prisma generate",
     "db:migrate": "pnpm --filter @kodnest/db exec prisma migrate dev",
+    "db:deploy": "pnpm --filter @kodnest/db exec prisma migrate deploy",
     "docker:up": "docker compose -f docker-compose.local.yml up -d",
-    "docker:down": "docker compose -f docker-compose.local.yml down"
+    "docker:down": "docker compose -f docker-compose.local.yml down",
+    "postinstall": "pnpm db:generate",
+    "run": "powershell -ExecutionPolicy Bypass -File ./scripts/run-complete.ps1"
   },
   "devDependencies": {
     "turbo": "^2.0.0"
