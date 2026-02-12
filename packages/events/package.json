@@ -1,0 +1,13 @@
+{
+  "name": "@kodnest/events",
+  "private": true,
+  "main": "dist/outbox.js",
+  "types": "dist/outbox.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src/"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

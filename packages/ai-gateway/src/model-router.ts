@@ -1,0 +1,2 @@
+// Model router - stub
+export {};

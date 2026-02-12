@@ -1,0 +1,2 @@
+// Huggingface provider - stub
+export {};

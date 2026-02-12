@@ -1,0 +1,2 @@
+// email provider - stub
+export {};

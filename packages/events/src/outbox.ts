@@ -1,0 +1,2 @@
+// Event outbox - stub
+export {};

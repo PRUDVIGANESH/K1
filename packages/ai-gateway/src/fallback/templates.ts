@@ -1,0 +1,2 @@
+// Templates fallback - stub
+export {};

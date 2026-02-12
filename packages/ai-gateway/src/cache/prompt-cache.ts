@@ -1,0 +1,2 @@
+// Prompt cache - stub
+export {};

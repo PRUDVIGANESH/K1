@@ -1,0 +1,2 @@
+// Shared errors - stub
+export {};
