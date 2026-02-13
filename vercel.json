@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "buildCommand": "cd ../.. && pnpm install && pnpm db:generate && cd apps/web && next build",
+  "installCommand": "pnpm install",
+  "framework": "nextjs",
+  "rootDirectory": "apps/web",
+  "outputDirectory": ".next",
+  "env": {
+    "PRISMA_GENERATE_DATAPROXY": "true"
+  }
+}
