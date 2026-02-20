@@ -19,6 +19,10 @@ export async function GET() {
       id: r.id,
       title: r.title,
       content: r.content,
+      template: r.template,
+      themeColor: r.themeColor,
+      atsScore: r.atsScore,
+      isDefault: r.isDefault,
       createdAt: r.createdAt.toISOString(),
       updatedAt: r.updatedAt.toISOString(),
     })),
@@ -34,7 +38,7 @@ export async function POST(req: Request) {
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await req.json().catch(() => ({}));
-  const { title, content } = body;
+  const { title, content, template, themeColor } = body;
   if (!title || typeof title !== "string" || title.trim().length === 0) {
     return NextResponse.json({ error: "title required" }, { status: 400 });
   }
@@ -45,12 +49,18 @@ export async function POST(req: Request) {
       userId,
       title: title.trim(),
       content: safeContent as object,
+      template: typeof template === "string" ? template : "classic",
+      themeColor: typeof themeColor === "string" ? themeColor : "#0284c7",
     },
   });
   return NextResponse.json({
     id: resume.id,
     title: resume.title,
     content: resume.content,
+    template: resume.template,
+    themeColor: resume.themeColor,
+    atsScore: resume.atsScore,
+    isDefault: resume.isDefault,
     createdAt: resume.createdAt.toISOString(),
     updatedAt: resume.updatedAt.toISOString(),
   });
@@ -58,11 +68,19 @@ export async function POST(req: Request) {
 
 function defaultResumeContent(user: { name?: string | null; email?: string | null }) {
   return {
-    fullName: user.name ?? "",
-    email: user.email ?? "",
-    phone: "",
-    summary: "",
-    sections: [],
+    personal: {
+      fullName: user.name ?? "",
+      email: user.email ?? "",
+      phone: "",
+      location: "",
+      website: "",
+      linkedin: "",
+      summary: "",
+    },
+    experience: [],
+    education: [],
     skills: [],
+    projects: [],
+    certifications: [],
   };
 }

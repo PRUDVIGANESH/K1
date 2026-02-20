@@ -48,6 +48,13 @@ export async function GET(req: Request) {
       company: s.job.company,
       url: s.job.url,
       description: s.job.description,
+      location: s.job.location,
+      mode: s.job.mode,
+      experienceLevel: s.job.experienceLevel,
+      skills: s.job.skills,
+      salaryMin: s.job.salaryMin,
+      salaryMax: s.job.salaryMax,
+      salaryCurrency: s.job.salaryCurrency,
       postedAt: s.job.postedAt?.toISOString() ?? null,
       status: s.status,
       appliedAt: s.appliedAt?.toISOString() ?? null,
@@ -65,12 +72,9 @@ export async function POST(req: Request) {
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await req.json().catch(() => ({}));
-  const { title, company, url, description } = body;
+  const { title, company, url, description, location, mode, experienceLevel, skills } = body;
   if (!title || !company) {
-    return NextResponse.json(
-      { error: "title and company required" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "title and company required" }, { status: 400 });
   }
 
   const job = await prisma.job.create({
@@ -80,6 +84,10 @@ export async function POST(req: Request) {
       company: String(company).trim(),
       url: url ? String(url).trim() : null,
       description: description ? String(description).trim() : null,
+      location: location ? String(location).trim() : null,
+      mode: mode ? String(mode).trim() : null,
+      experienceLevel: experienceLevel ? String(experienceLevel).trim() : null,
+      skills: Array.isArray(skills) ? skills.map(String) : [],
     },
   });
 
@@ -94,6 +102,13 @@ export async function POST(req: Request) {
       company: job.company,
       url: job.url,
       description: job.description,
+      location: job.location,
+      mode: job.mode,
+      experienceLevel: job.experienceLevel,
+      skills: job.skills,
+      salaryMin: job.salaryMin,
+      salaryMax: job.salaryMax,
+      salaryCurrency: job.salaryCurrency,
       postedAt: job.postedAt?.toISOString() ?? null,
       createdAt: job.createdAt.toISOString(),
     },

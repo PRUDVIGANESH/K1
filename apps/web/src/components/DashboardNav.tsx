@@ -12,6 +12,7 @@ const links = [
   { href: "/dashboard/readiness", label: "Readiness" },
   { href: "/dashboard/notifications", label: "Notifications" },
   { href: "/dashboard/analytics", label: "Analytics" },
+  { href: "/dashboard/settings/preferences", label: "Preferences" },
 ];
 
 export function DashboardNav({ user }: { user: User }) {
@@ -24,7 +25,7 @@ export function DashboardNav({ user }: { user: User }) {
           key={href}
           href={href}
           className={`block px-3 py-2 rounded-lg text-sm font-medium ${
-            pathname === href
+            pathname === href || (href !== "/dashboard" && pathname.startsWith(href))
               ? "bg-primary-50 text-primary-700"
               : "text-gray-700 hover:bg-gray-100"
           }`}

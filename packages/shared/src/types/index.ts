@@ -26,6 +26,9 @@ export interface UserProfile {
 // Jobs
 export type JobStatus = "saved" | "applied" | "interviewing" | "offered" | "rejected";
 
+export type WorkMode = "remote" | "hybrid" | "onsite";
+export type ExperienceLevel = "junior" | "mid" | "senior" | "lead" | "any";
+
 export interface JobListing {
   id: Id;
   source: string;
@@ -34,14 +37,23 @@ export interface JobListing {
   company: string;
   url: string | null;
   description: string | null;
+  location: string | null;
+  mode: string | null;
+  experienceLevel: string | null;
+  skills: string[];
+  salaryMin: number | null;
+  salaryMax: number | null;
+  salaryCurrency: string | null;
   postedAt: string | null;
   createdAt: string;
 }
 
 export interface SavedJob extends JobListing {
+  savedJobId: string;
   status: JobStatus;
   appliedAt: string | null;
   savedAt: string;
+  matchScore?: number;
 }
 
 // Resume
