@@ -8,17 +8,11 @@ export default async function NewResumePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">New resume</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-6">New Resume</h1>
       <NewResumeForm
         defaultTitle="My Resume"
-        defaultContent={{
-          fullName: session.user.name ?? "",
-          email: session.user.email ?? "",
-          phone: "",
-          summary: "",
-          sections: [],
-          skills: [],
-        }}
+        defaultName={session.user.name ?? ""}
+        defaultEmail={session.user.email ?? ""}
       />
     </div>
   );

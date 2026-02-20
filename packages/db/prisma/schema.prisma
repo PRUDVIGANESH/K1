@@ -15,12 +15,13 @@ model User {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
-  accounts      Account[]
-  sessions      Session[]
-  savedJobs     SavedJob[]
-  resumes       Resume[]
-  readiness     ReadinessScore[]
-  notifications Notification[]
+  accounts        Account[]
+  sessions        Session[]
+  savedJobs       SavedJob[]
+  resumes         Resume[]
+  readiness       ReadinessScore[]
+  notifications   Notification[]
+  preferences     UserPreference?
 }
 
 model Account {
@@ -67,6 +68,13 @@ model Job {
   company     String
   url         String?
   description String?
+  location    String?
+  mode        String?
+  experienceLevel String?
+  skills      String[]
+  salaryMin   Int?
+  salaryMax   Int?
+  salaryCurrency String?
   postedAt    DateTime?
   createdAt   DateTime  @default(now())
 
@@ -88,12 +96,32 @@ model SavedJob {
 }
 
 model Resume {
-  id        String   @id @default(cuid())
-  userId    String
-  title     String
-  content   Json
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  content     Json
+  template    String   @default("classic")
+  themeColor  String   @default("#0284c7")
+  atsScore    Int?
+  atsFeedback Json?
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserPreference {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  roleKeywords       String[]
+  preferredLocations String[]
+  preferredMode      String?
+  experienceLevel    String?
+  skills             String[]
+  minMatchScore      Int      @default(0)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
